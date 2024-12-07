@@ -1,0 +1,7 @@
+You need to:
+
+Update the get_excel_file_paths function with the correct directory path where your Excel files are located.
+Update the Extract_histogram_from_ROI function with the correct file paths for input and output as needed.
+Then run the ImagePreprocessing function to preprocess your breast images
+
+If any problem arises, feel free to connect via email: eng.abbasalsaeedi@gmail.com.
