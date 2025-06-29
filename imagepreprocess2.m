@@ -37,7 +37,7 @@ for i1 = 1:height(A) % this loop from 1 : end dataset fiel
         
         
         %% Process the cancer image
-        %% remove lab and empty row and coulum removelabcoulum
+        %% remove lab and empty row and coulum removelabcoulum and noise  and Pectoral Muscle1
         
         imagenumer = breastrimage;
         [sizce1, sizcen2] = size(breastrimage);
@@ -45,6 +45,7 @@ for i1 = 1:height(A) % this loop from 1 : end dataset fiel
         imagenumer((sizce1-100):end, :) = [];
         
         %% Apply various image processing steps
+        imagenumer = medfilt2(imagenumer, [3 3]) 
         im1 = RemoveLabColum(imagenumer); %% remove lab and empty row and coloum
         im2= removePectoralMuscle1(im1);%% remove pectoral muscles
         im2 = im2uint8(im2);
@@ -57,10 +58,13 @@ for i1 = 1:height(A) % this loop from 1 : end dataset fiel
         qqq = (K - contrasrenhance);
         im3 = im2uint8(qqq + contrasrenhance);
 
+window_size = round(size(im3, 2) / 8);  % 1/8 of image width
+T = adaptthresh(I, 0.15, 'NeighborhoodSize', window_size, 'Statistic', 'mean');
+ 
 imshow(contrasrenhance)
         %% Perform region growing and combine images
-        %Select suspicious lesions in mammograms by thresholding and flood-fill technique
-        [final_image] = region_growing_from_seed(im3,0.84,0.2);
+        %Select suspicious lesions in mammograms by thresholding and the flood-fill technique
+        [final_image] = region_growing_from_seed(im3,T,0.2);
         
         im4=im2uint8(final_image*0.2)+im3;
         
