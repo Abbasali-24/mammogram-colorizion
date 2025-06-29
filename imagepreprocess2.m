@@ -139,13 +139,7 @@ imshow(contrasrenhance)
             imwrite(Z1NEW, output_file);
         end
         
-        % Display the final processed image
-        figure(3);
-        imshow(ORIM2, []); xlabel('Original image after cat lab');
-        figure(4);
-        imshow(newImgte); xlabel('Color image of combined 3 images');
-        figure(5);
-        imshow(Z1NEW); xlabel('Color image of combined 3 images');
+        
     else
         lop(lo, 1) = i1;
         lo = lo + 1;
